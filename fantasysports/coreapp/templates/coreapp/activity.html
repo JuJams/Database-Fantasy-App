@@ -1,0 +1,58 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Overview - Fantasy Sports Data Repository</title>
+    <link rel="stylesheet" href="{% static 'coreapp/activity.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/manage">Manage</a></li>
+          <li><a href="/teams">Teams</a></li>
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+      <h1>Database Tables</h1>
+      {% for table_name, table_data in tables.items %}
+      <div class="table-container">
+          <h2>{{ table_name }}</h2>
+          {% if table_data.rows == "No data found in this table." %}
+          <p>No data found in this table.</p>
+          {% else %}
+          <table>
+              <thead>
+                  <tr>
+                      {% for column in table_data.columns %}
+                      <th>{{ column }}</th>
+                      {% endfor %}
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for row in table_data.rows %}
+                  <tr>
+                      {% for value in row %}
+                      <td>{{ value }}</td>
+                      {% endfor %}
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+          {% endif %}
+      </div>
+      {% endfor %}
+  </div>
+  
+    </div>
+
+    <footer>
+    </footer>
+  </body>
+</html>
